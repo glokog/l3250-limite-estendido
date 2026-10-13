@@ -1,0 +1,9 @@
+* text=auto
+*.cmd -text
+*.ps1 -text
+*.cs -text
+*.json -text
+*.xml -text
+*.CFX binary
+*.pdf binary
+*.txt -text

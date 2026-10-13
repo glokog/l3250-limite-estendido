@@ -1,0 +1,67 @@
+﻿{
+  "format": 1,
+  "release": 5,
+  "status": "experimental-not-tested-on-windows-or-printer",
+  "driver": "EPSON L3250 Series",
+  "driver_version": "3.80.05.00",
+  "architecture": "amd64",
+  "minimum_powershell": "2.0",
+  "target_os": "Windows 7 x64",
+  "legacy_inf": "E2WF1YWE.INF",
+  "original_installer_sha256": "8cdb2c34bebc163578c0fcdaaf9c77e50b08184ef6c3d7b2038aab940df9c145",
+  "original_max_length_tenths_mm": 12000,
+  "patched_max_length_tenths_mm": 32767,
+  "patched_max_length_hundredths_inch": 12900,
+  "binaries": [
+    {
+      "properties": [
+        "ConfigFile"
+      ],
+      "source_name": "E_WU1YA0.DLL",
+      "installed_name": "E_YUICYWE.DLL",
+      "sha256": "6335cd6ab5ea8e826b57e333764d0f24a19e972a4b119dc90e27eace333ec8b8"
+    },
+    {
+      "properties": [
+        "DriverPath"
+      ],
+      "source_name": "E_WMAI51.DLL",
+      "installed_name": "E_YMAIYWE.DLL",
+      "sha256": "194dba4e6b707007fe86e825a79ec24db4882439ad9ac6dc79571d437d7493d1"
+    },
+    {
+      "properties": [
+        "DataFile"
+      ],
+      "source_name": "E_WM1YWE.VIF",
+      "installed_name": "E_YVIFYWE.VIF",
+      "sha256": "1179402f182daa5c5e309014aef51bb0f693aaafcafcb138428f61c78a9a292e"
+    }
+  ],
+  "files": [
+    {
+      "source_name": "E_JC1YVA.CFX",
+      "installed_name": "E_TCXYWA.CFX",
+      "original_sha256": "0094b9fc1051353271780568e3670fb39e5997419e4bc107514b1512793e061a",
+      "patched_sha256": "8581e67749cf8bc22f3ef0e8a3589755ac0410e89a4b7cd9a304219dbca06571",
+      "previous_sha256": "4ca2dc896f84f15184758e4e855d69d45d2c968c8b41f2ef2d3ba05a12858dfc",
+      "changed_attributes": [
+        "F[f=7]/E[e=261]@K",
+        "F[f=11]/E[e=0]/V@x",
+        "F[f=13]/E[e=0]/V@x"
+      ]
+    },
+    {
+      "source_name": "E_JC1YVE.CFX",
+      "installed_name": "E_TCXYWE.CFX",
+      "original_sha256": "45df278d23297369466053b81b74b527f2520c92f6b7955beb2896ac970f3a3e",
+      "patched_sha256": "695f990d9017b7368d41faa3f43a5809b9d83996d55bdf2278fffd205f514d34",
+      "previous_sha256": "09f8377c5c7cb656669b5efb6c5ce11e1005df8f8639e3c075244bcbd0b50f9e",
+      "changed_attributes": [
+        "F[f=7]/E[e=261]@K",
+        "F[f=11]/E[e=0]/V@x",
+        "F[f=13]/E[e=0]/V@x"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+﻿EPSON L3250 V5 - PERFIS DE DADOS E CACHE DE COMPRIMENTO
+Windows 7 x64 Intel/AMD, PowerShell 2.0 ou superior
+
+1. Extraia TODO o ZIP em uma pasta nova.
+2. Feche as preferencias Epson e os aplicativos que usam a impressora.
+   Aguarde as filas de impressao terminarem.
+3. Clique com o botao direito em instalar.cmd > Executar como administrador.
+4. Ao terminar, confira "comprimento maximo informado". O esperado e
+   aproximadamente 3276,7 mm. Codigo 2 significa limite nao confirmado.
+5. Execute abrir-preferencias.cmd e tente salvar 210 x 3000 mm em
+   Tamanho do papel > Definido pelo usuario.
+6. Se continuar limitado, envie o log install-*.log indicado na janela.
+   Nao precisa executar o D1 novamente. Nao imprima durante a instalacao.
+
+A V5 trata uma causa que a V3/V4 nao tratava: os CFX de trabalho em
+ProgramData e o cache binario. A analise estatica da DLL e do VIF mostrou:
+  %ProgramData%\EPSON\EPSON L3250 Series\E_TCXYWE.CFX
+  %ProgramData%\EPSON\EPSON L3250 Series\E_TCXYWA.CFX
+  %ProgramData%\EPSON\EPSON L3250 Series\ConvBinData\E_TCXYWE.CFB
+O driver pode preferir o CFB quando suas versoes coincidem. Reiniciar o
+Windows nao exclui esse cache persistente.
+
+O instalador verifica as duas DLLs e o VIF pelos hashes conhecidos.
+Atualiza os CFX reconhecidos no spooler e os presentes na pasta de dados.
+Com o spooler parado, guarda uma copia verificada do CFB e retira somente
+esse arquivo ativo para permitir sua regeneracao. Nao modifica UCB/USB,
+Registro, DLLs, permissoes, assinaturas ou DriverStore. Nao envia impressao.
+Os tres limites CFX sao os mesmos da V3: 3276,7 mm / 129,00 polegadas.
+A diferenca e a aplicacao nos perfis de trabalho e a renovacao do cache.
+Se nao encontrar perfil de trabalho ou encontrar hash desconhecido,
+interrompe sem aplicar os arquivos. Nao procura nem limpa outros modelos.
+
+restaurar.cmd devolve os CFX originais de 1200 mm e guarda/retira o CFB
+corrente para que ele seja regenerado com os limites originais. Exige
+backup da V5. Os backups anteriores permanecem nas respectivas pastas.
+verificar.cmd consulta arquivos e DC_MAXEXTENT, sem aplicar o ajuste.
+Logs/backups: C:\ProgramData\L3250-Comprimento-Experimental-Win7
+
+Codigo 0 confirma arquivos/limite anunciado, nao a impressao de 3 m.
+Codigo 1: erro. Codigo 2: limite nao confirmado.
+O ZIP pequeno usa o driver ja instalado; o completo inclui a Epson
+3.80.05.00 original. Nao e necessario reinstalar se os hashes conferirem.
+A correcao de elevacao/retorno da V4 continua incluida.
+
+Pacote experimental. Testes locais de arquivos, falhas e restauracao em
+PowerShell moderno/Linux; Windows 7/PS2 e impressora real nao disponiveis
+neste ambiente. A causa no seu computador ainda precisa ser confirmada
+pelo limite apos a aplicacao e por salvar o tamanho no painel Epson.
