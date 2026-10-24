@@ -44,7 +44,7 @@ O pacote oferece `teste-1500mm.pdf` e `teste-3000mm.pdf`, ambos com uma página 
 
 Selecione o tamanho de papel correspondente e use escala **100%**, com margens. Desative ajuste automático de página, pôster/mosaico e várias páginas por folha. Meça o resultado físico: o arquivo ou a aceitação pelo spooler não comprova a escala e o comprimento impressos.
 
-A impressão confirmada no registro anterior foi de **1350 mm**. Os PDFs de 1500 e 3000 mm são instrumentos de teste e não registros de impressão concluída.
+O marco anterior foi uma impressão de **1350 mm**. Em **23/10/2026**, o usuário confirmou a impressão física de **3000 mm**. Os PDFs continuam sendo instrumentos de teste, não evidência documental do teste realizado; aplicativo, resolução, conexão e método desse novo teste não foram informados. **Não tente tratar 4000 mm como tamanho suportado pela V5**: está acima do teto atual e exige investigação prévia, descrita no [plano técnico](ROADMAP-COMPRIMENTO.md).
 
 ## Restaurar
 

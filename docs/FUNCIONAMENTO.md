@@ -32,4 +32,4 @@ A estrutura e os hashes estão em [manifest.json](../pacote/manifest.json). Os s
 
 ## Limite de interpretação
 
-O teto do perfil, a resposta de capacidade do Windows e o comprimento realmente impresso são medidas diferentes. A confirmação física disponível é **1350 mm via USB**. A V5 continua experimental para 3000 mm; não fornece uma solução validada de página contínua de 30 metros.
+O teto do perfil, a resposta de capacidade do Windows e o comprimento realmente impresso são medidas diferentes. O marco anterior foi **1350 mm via USB**. Em **23/10/2026**, o usuário informou ter realmente impresso **3000 mm**. Esse relato físico não valida 4000 mm, outras configurações ou uma página contínua de 30 metros. O teto dos perfis continua inalterado. Consulte o [plano técnico](ROADMAP-COMPRIMENTO.md) para os limites da API Windows e as investigações necessárias.

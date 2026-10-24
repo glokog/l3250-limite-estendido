@@ -2,7 +2,11 @@
 
 ## Resultado físico informado
 
-O registro anterior do projeto informa que o responsável aplicou a **V5** na Epson L3250 conectada por **USB** e imprimiu **1350 mm**, superando os **1200 mm** originais. Esse relato não confirmou impressão de 3 metros.
+O registro anterior do projeto informa que o responsável aplicou a **V5** na Epson L3250 conectada por **USB** e imprimiu **1350 mm (cerca de 1,3 m)**, superando os **1200 mm** originais do perfil.
+
+**Atualização de 23/10/2026:** o usuário confirmou que a Epson L3250 **realmente imprimiu 3000 mm (3 metros)**. Trata-se de um teste físico relatado por uma pessoa, não de execução de hardware pelo mantenedor automatizado. Aplicativo, conexão, resolução, suporte de papel e método de medição desse novo teste não foram informados; não se deduzem esses detalhes do teste anterior.
+
+O marco de 3 m não comprova repetibilidade em todas as configurações nem suporte a **4 m** ou a comprimento arbitrário. Ambos continuam sem validação física; 4 m também ultrapassam o teto dos perfis V5.
 
 ## Validações do desenvolvimento original
 
@@ -29,6 +33,8 @@ Nenhuma impressora ou instalação Windows foi modificada durante esta publicaç
 
 ## Pendências
 
-A execução automatizada em Windows 7/PowerShell 2.0 e a impressão física de 3000 mm não foram demonstradas pelos testes Linux. Outros drivers, modelos, sistemas e conexões não foram validados. O teto configurado não garante o comportamento do firmware ou de todos os aplicativos de impressão.
+A execução automatizada em Windows 7/PowerShell 2.0 não foi demonstrada pelos testes Linux. A confirmação física de 3000 mm vem do relato humano de 23/10/2026, não desses testes. Outros drivers, modelos, sistemas e conexões não foram validados. O teto configurado não garante o comportamento do firmware ou de todos os aplicativos de impressão.
+
+O próximo objetivo é investigar 4000 mm antes de preparar um teste controlado. O [plano técnico](ROADMAP-COMPRIMENTO.md) separa limites comprovados no código, restrições da API e hipóteses ainda sem evidência.
 
 O manifesto do pacote mantém o estado original de build experimental. O relato manual posterior está registrado nesta página e no README.

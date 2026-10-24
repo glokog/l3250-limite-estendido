@@ -12,11 +12,14 @@ Pacote **V5 experimental** para ampliar o comprimento de papel configurável no 
 | --- | --- |
 | Limite original dos perfis | 1.200 mm |
 | Limite configurado pela V5 | 3.276,7 mm; 129,00 polegadas no perfil equivalente |
-| Impressão física informada pelo responsável | **1.350 mm, via USB**, após aplicar a V5 |
-| Página de 3.000 mm | Alvo experimental, ainda sem confirmação de impressão física |
-| Rolo contínuo de 30 metros | Fora da capacidade validada deste pacote |
+| Marco físico anterior | **1.350 mm (cerca de 1,3 m), via USB**, após aplicar a V5 |
+| Impressão física de 3.000 mm | **Confirmada pelo usuário em 23/10/2026**; relato de teste físico, não teste automatizado |
+| Página de 4.000 mm | Próximo objetivo de investigação; **não validada** e acima do teto atual |
+| Comprimento arbitrário / rolo de 30 metros | Hipótese para pesquisa futura, sem garantia de suporte |
 
-O aumento do limite nos arquivos ou a resposta do driver não comprova, sozinho, a impressão de todo o comprimento. A publicação preserva os pacotes V5 existentes.
+O aumento do limite nos arquivos ou a resposta do driver não comprova, sozinho, a impressão de todo o comprimento. O novo marco de **3 metros realmente impressos** é uma confirmação humana, informada pelo usuário; não foram recebidos novos parâmetros do teste para atribuir aplicativo, resolução, conexão ou método a esse resultado. Os pacotes V5 existentes permanecem preservados.
+
+**Próximo passo:** investigar a barreira de 3276,7 mm antes de preparar um teste de 4 m. Trocar apenas o número do perfil não basta para garantir suporte. Veja o [plano técnico de 4 m e comprimento configurável](docs/ROADMAP-COMPRIMENTO.md).
 
 ## Downloads
 
@@ -50,6 +53,7 @@ O pacote confere duas DLLs, o VIF e os perfis pelos hashes registrados. Interrom
 - [Instalação, uso, restauração e solução de problemas](docs/INSTALACAO.md)
 - [Funcionamento do ajuste V5](docs/FUNCIONAMENTO.md)
 - [Validação e resultados conhecidos](docs/VALIDACAO.md)
+- [Plano técnico: 4 m e comprimento configurável](docs/ROADMAP-COMPRIMENTO.md)
 - [Relatório técnico original V5](docs/RELATORIO-V5.md)
 - [Histórico](CHANGELOG.md)
 - [Scripts, manifests e perfis do pacote menor](pacote/)
