@@ -1,6 +1,6 @@
 # Epson L3250 e L375 — papel longo e sem margem
 
-Pacotes **experimentais** para ampliar o comprimento do papel definido pelo usuário nos drivers Epson L3250 e L375 e, na L3250, liberar sem margem como no driver da L4260. Cada pacote tem instalador, verificação e restauração.
+Pacotes **experimentais** para ampliar o comprimento do papel definido pelo usuário nos drivers Epson L3250 e L375 e liberar sem margem em qualquer tamanho. Cada pacote tem instalador, verificação e restauração.
 
 **Windows 7 x64 (Intel/AMD) · PowerShell 2.0 ou superior**
 
@@ -8,8 +8,9 @@ Pacotes **experimentais** para ampliar o comprimento do papel definido pelo usu�
 
 | Impressora | Versão | O que faz | Downloads |
 | --- | --- | --- | --- |
-| L3250 (driver 3.80.05.00) | **V7** | Papel até 4624 mm + sem margem como na L4260 | [Correção (driver já instalado)](https://github.com/glokog/l3250-limite-estendido/releases/download/v7-experimental/L3250_CORRECAO_PREFERENCIAS_V7.zip) · [Completo](https://github.com/glokog/l3250-limite-estendido/releases/download/v7-experimental/L3250_4624mm_SEM_MARGEM_WIN7_V7.zip) · [Notas](https://github.com/glokog/l3250-limite-estendido/releases/tag/v7-experimental) |
-| L375 (driver 2.60.00.00) | **V2** | Papel até 4624 mm | [Correção (driver já instalado)](https://github.com/glokog/l3250-limite-estendido/releases/download/l375-v2-experimental/L375_CORRECAO_PREFERENCIAS_V2.zip) · [Completo](https://github.com/glokog/l3250-limite-estendido/releases/download/l375-v2-experimental/L375_4624mm_WIN7_V2.zip) · [Notas](https://github.com/glokog/l3250-limite-estendido/releases/tag/l375-v2-experimental) |
+| L3250 (driver 3.80.05.00) | **V8** | Papel até 4624 mm + sem margem em qualquer tamanho | [Correção (driver já instalado)](https://github.com/glokog/l3250-limite-estendido/releases/download/v8-experimental/L3250_CORRECAO_PREFERENCIAS_V8.zip) · [Completo](https://github.com/glokog/l3250-limite-estendido/releases/download/v8-experimental/L3250_4624mm_SEM_MARGEM_TOTAL_WIN7_V8.zip) · [Notas](https://github.com/glokog/l3250-limite-estendido/releases/tag/v8-experimental) |
+| L375 (driver 2.60.00.00) | **V3** | Papel até 4624 mm + sem margem (por conta e risco) | [Correção (driver já instalado)](https://github.com/glokog/l3250-limite-estendido/releases/download/l375-v3-experimental/L375_CORRECAO_PREFERENCIAS_V3.zip) · [Completo](https://github.com/glokog/l3250-limite-estendido/releases/download/l375-v3-experimental/L375_4624mm_SEM_MARGEM_WIN7_V3.zip) · [Notas](https://github.com/glokog/l3250-limite-estendido/releases/tag/l375-v3-experimental) |
+| L375 sem sem margem | V2 | Só papel até 4624 mm | [Notas](https://github.com/glokog/l3250-limite-estendido/releases/tag/l375-v2-experimental) |
 
 O pacote **completo** inclui o instalador original da Epson; a **correção** usa o driver que já está instalado. Cada release tem um `SHA256SUMS` para conferir os arquivos.
 
@@ -19,9 +20,9 @@ O pacote **completo** inclui o instalador original da Epson; a **correção** us
 | --- | --- |
 | L3250 V5 (3276,7 mm) | Impressão de 1350 mm via USB confirmada; 3 m informado pelo responsável |
 | L3250 V6 (4624 mm) | **4624 mm aparece nas preferências** do driver; impressão de 3 m e 4,6 m pendente |
-| L3250 V7 (sem margem) | Não testada; o responsável já imprimia sem margem na L3250 com o driver da L4260 |
+| L3250 V7/V8 (sem margem) | Não testadas; o responsável já imprimia sem margem na L3250 com o driver da L4260 |
 | L375 V2 (4624 mm) | Não testada |
-| Sem margem na L375 | O driver da L375 não tem sem margem; não há o que liberar |
+| L375 V3 (sem margem) | Não testada. A Epson não fez sem margem para a L375; a V3 copia o recurso da L4260 por conta e risco (a tinta pode sujar a base da impressora) |
 
 Mudar o limite nos arquivos não prova, sozinho, que a impressora imprime o comprimento inteiro.
 
@@ -42,14 +43,17 @@ O ajuste muda só os perfis de configuração do driver (arquivos CFX, em XML) e
 
 - **4624 mm** é o teto escolhido: o driver guarda a dimensão personalizada em 16 bits sem sinal e o protocolo ESC/P-R tem coordenada vertical de 16 bits a 360 dpi (≈ 4623,9 mm).
 - Quando não existem perfis em `C:\ProgramData\EPSON\<modelo> Series`, o driver lê o CFX da pasta do spooler e regenera o cache; o instalador ajusta esse CFX.
-- **Sem margem na L3250:** a DLL de configuração da L3250 e a da L4260 são idênticas em código; a diferença está no CFX. A V7 copia as regras de sem margem da L4260.
+- **Sem margem na L3250:** a DLL de configuração da L3250 e a da L4260 são idênticas em código; a diferença está no CFX. A V7 copia as regras de sem margem da L4260 e a V8 as estende a todos os tamanhos.
+- **Sem margem na L375:** a tela do driver já tem os controles, mas o CFX não define o recurso; a V3 copia os campos, a tabela de expansão e a origem sem margem do CFX da L4260.
 
 ## Histórico de versões
 
 | Tag | Impressora | Resumo |
 | --- | --- | --- |
+| [`l375-v3-experimental`](https://github.com/glokog/l3250-limite-estendido/releases/tag/l375-v3-experimental) | L375 | 4624 mm + sem margem experimental copiado da L4260 |
+| [`v8-experimental`](https://github.com/glokog/l3250-limite-estendido/releases/tag/v8-experimental) | L3250 | 4624 mm + sem margem em qualquer tamanho |
 | [`l375-v2-experimental`](https://github.com/glokog/l3250-limite-estendido/releases/tag/l375-v2-experimental) | L375 | 4624 mm; campo "Verificar largura do papel" volta a ficar oculto |
-| [`v7-experimental`](https://github.com/glokog/l3250-limite-estendido/releases/tag/v7-experimental) | L3250 | 4624 mm + sem margem como na L4260 |
+| [`v7-experimental`](https://github.com/glokog/l3250-limite-estendido/releases/tag/v7-experimental) | L3250 | 4624 mm + sem margem como na L4260 (substituída) |
 | [`l375-v1-experimental`](https://github.com/glokog/l3250-limite-estendido/releases/tag/l375-v1-experimental) | L375 | 4624 mm (substituída) |
 | [`v6-experimental`](https://github.com/glokog/l3250-limite-estendido/releases/tag/v6-experimental) | L3250 | 4624 mm; funciona sem perfis em ProgramData (substituída) |
 | [`v5-experimental`](https://github.com/glokog/l3250-limite-estendido/releases/tag/v5-experimental) | L3250 | 3276,7 mm |

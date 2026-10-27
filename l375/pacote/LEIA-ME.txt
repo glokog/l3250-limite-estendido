@@ -1,34 +1,44 @@
-﻿EPSON L375 V2 - PAPEL ATE 4624 mm
+﻿EPSON L375 V3 - SEM MARGEM EXPERIMENTAL E PAPEL ATE 4624 mm
 Windows 7 x64 Intel/AMD, PowerShell 2.0 ou superior
+
+ATENCAO: a Epson nao fez sem margem para a L375. Nem o driver de Windows
+nem os dados da Epson para Linux listam tamanho sem margem para ela. Esta
+versao liga o sem margem por conta e risco. A tinta que passa da borda do
+papel pode cair na base da impressora (a L375 nao tem espuma para isso) e
+manchar o verso das proximas folhas.
 
 1. Extraia TODO o ZIP em uma pasta nova.
 2. Feche as preferencias Epson e os aplicativos que usam a impressora.
    Aguarde as filas de impressao terminarem.
 3. Clique com o botao direito em instalar.cmd > Executar como administrador.
 4. Ao terminar, confira "comprimento maximo informado": 4624 mm.
-5. Execute abrir-preferencias.cmd e salve 210 x 4624 mm em
-   Tamanho do papel > Definido pelo usuario.
-6. Teste de impressao, um de cada vez: primeiro teste-3000mm.pdf, depois
-   teste-4600mm.pdf; escala 100%, sem Ajustar pagina. Diga a ultima marca
-   que saiu no papel.
-7. Se der erro, envie o log install-*.log indicado na janela.
+5. Execute abrir-preferencias.cmd e veja se aparece a caixa "Sem margens"
+   na tela Principal e a opcao "Sem margens" no Definido pelo usuario.
+6. PRIMEIRO TESTE: uma folha 10 x 15 cm ou A4 velha, sem margem, com uma
+   imagem que encoste nas bordas. Depois de imprimir, abra a tampa e olhe a
+   base por onde o papel passa. Se tiver tinta, limpe com pano umido e nao
+   continue com sem margem.
+7. So depois teste papel longo (teste-3000mm.pdf, depois teste-4600mm.pdf).
+8. Se der erro ou a impressora recusar, rode restaurar.cmd.
 
-O driver de origem e Epson L375 2.60.00.00, x64. O limite original nos
-dois CFX era 1117,6 mm; passa para 4624 mm / 182,05 polegadas.
+O que a V3 faz:
+A tela da L375 ja tem os controles de sem margem (caixa 2793 na Principal,
+opcao 6307 no papel do usuario), mas o CFX nao define o recurso. A V3
+copia do CFX da L4260 (mesmo esquema z="103") os campos 213-215 (Sem
+margens, Expansao, Metodo), a tabela de expansao BE/BD e a origem
+"Alimentador traseiro - Sem margens"; marca sem margem em todos os
+tamanhos que a L375 alimenta e abre o papel do usuario sem margem de 89 a
+215,9 mm de largura e 127 a 4624 mm de comprimento. A3, A3+, A2, B4 e B3
+(maiores que a impressora) ficam como estao. O aviso de sem margem da
+L4260 nao foi copiado.
 
-Correcao em relacao a V1: o campo 230 que a V1 mostrava e "Verificar
-largura do papel antes de imprimir", nao sem margem. A V2 o deixa oculto
-como no original. Este driver da L375 nao tem sem margem: nao existem o
-campo, as tabelas de expansao nem a origem de papel sem margem que a
-L3250 e a L4260 tem.
+O instalador reconhece o CFX original de 1117,6 mm, o da V1 e o da V2.
+Sem perfis em %ProgramData%\EPSON\EPSON L375 Series, ajusta os CFX do
+driver no spooler e o driver regenera o cache. Nao modifica DLLs,
+registro, permissoes, assinaturas ou DriverStore.
 
-O instalador reconhece o CFX original e o da V1. Quando nao existem
-perfis em %ProgramData%\EPSON\EPSON L375 Series, ajusta os CFX do driver
-no spooler e o driver regenera o cache. Nao modifica DLLs, registro,
-permissoes, assinaturas ou DriverStore. Nao imprime.
-
-restaurar.cmd recupera os CFX originais de 1117,6 mm (exige backup da V2).
+restaurar.cmd recupera os CFX originais de 1117,6 mm (exige backup da V3).
 verificar.cmd consulta arquivos e o limite sem aplicar nada.
 Logs e backups: C:\ProgramData\L375-Comprimento-Experimental-Win7
 
-Pacote experimental; impressao de 4624 mm ainda nao testada.
+Pacote experimental; nada disso foi testado no Windows ou na impressora.

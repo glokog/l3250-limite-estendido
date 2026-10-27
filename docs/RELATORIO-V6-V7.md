@@ -75,3 +75,9 @@ Conclusão: sem perfis em ProgramData, ajustar os CFX do spooler e retirar o CFB
 ## L375 V2
 
 O CFX da L375 2.60 não define o campo 213, não tem `<BD>`, nem `p/P`, nem `se/sr`; só presets ocultos (`S="f"`) mencionam 213. Não há sem margem a liberar. A V1 tinha retirado `S="f"` do campo 230 achando que era sem margem; a V2 mantém o campo oculto como no original e só aplica o limite de 4624 mm (aceita CFX original e V1).
+
+## V8 e L375 V3 (27/10/2026)
+
+- **L3250 V8:** marca `p/P` (classe 1 para 9x13, 10x15 e 100x148; classe 2 para os demais) em todos os tamanhos alimentáveis dos campos 9 e 35, exceto os maiores que a impressora (`L="t"`) e o definido pelo usuário; remove todas as regras `<P>` com `213=1` e tamanho (campo 9 ou 35); papel do usuário sem margem com `Dw/Dh` iguais ao mínimo do driver (54 × 86 mm) até 215,9 × 4624 mm. Aceita CFX original, V6 e V7 (o manifesto passou a aceitar mais de um hash anterior, separados por `;`).
+- **L375:** os dados ESC/P-R da Epson (`epson-inkjet-printer-escpr` 1.8.8) listam 0 tamanhos sem margem para a L375, 4 para a L3250 e 8 para a L4260. Mesmo assim, a UI da L375 (`E_WI0MAE.DLL`, decodificada via REA `inspect_pe_resources`) tem a caixa "Borderless" (2793) e o botão de expansão (2794) na tela Principal, e as opções "Borders/Borderless" (6306/6307) no papel do usuário; a DLL de configuração contém `CPageBorderlessCommon`, `CRadioBorderlessSelectUserPaperSize` e os nomes `BD/BE/Dw/DH/se/sr`. `C1/C2` são "PrinterCapsInk1/2" e `PC` é "PrinterCapsCommon" (id 0x40), não verificado bit a bit.
+- **L375 V3:** copia do CFX da L4260 (`z="103"`, igual ao da L375) `BE/BD`, campos 213–215 (sem o `m="38"` do 213) e suas entradas de reset; origem 261 ganha `se="292" sr="87"` ("Rear Feed-Borderless", string 2487) e `Dw/Dh/DW/DH` (89 × 127 até 215,9 × 4624 mm); `p/P` em todos os tamanhos alimentáveis. Aceita CFX original, V1 e V2. Não testada: o firmware pode aceitar, ignorar ou imprimir além da borda sem absorvedor.

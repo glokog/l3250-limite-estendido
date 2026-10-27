@@ -1,5 +1,11 @@
 # Histórico
 
+## L375 V3 experimental — 27/10/2026
+
+- **Sem margem por conta e risco:** a tela da L375 já tem os controles; a V3 copia do CFX da L4260 os campos 213–215, a tabela de expansão e a origem sem margem, e marca todos os tamanhos alimentáveis.
+- Papel definido pelo usuário sem margem de 89 a 215,9 mm de largura e 127 a 4624 mm de comprimento.
+- A Epson não lista sem margem para a L375 nem no driver de Linux; a tinta pode sujar a base. Reconhece original, V1 e V2. Ainda não testada.
+
 ## L3250 V8 experimental — 27/10/2026
 
 - **Sem margem em qualquer tamanho** que a impressora alimenta, estendendo as regras da L4260.
