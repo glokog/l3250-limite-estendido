@@ -1,5 +1,11 @@
 # Histórico
 
+## L3250 V7 experimental — 27/10/2026
+
+- **Sem margem como no driver da L4260**: A4, Carta, 13×18 e 20×25 cm, e papel definido pelo usuário sem margem de 182 a 215,9 mm de largura e até 4624 mm de comprimento.
+- A DLL de configuração da L3250 e a da L4260 têm código idêntico; a V7 copia as regras de sem margem do CFX da L4260 (marcas p/P, 8 regras removidas, faixa Dw/Dh/DW/DH).
+- Não acrescenta mais o campo 230. Atualiza por cima da V6. Ainda não testada.
+
 ## L375 V1 experimental — 27/10/2026
 
 - Limite do papel definido pelo usuário de 1117,6 para **4624 mm** no driver Epson L375 2.60.00.00.

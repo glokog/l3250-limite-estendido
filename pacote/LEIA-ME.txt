@@ -1,56 +1,39 @@
-﻿EPSON L3250 V6 - SEM BORDA E PAPEL DE ATE 4624 mm
+﻿EPSON L3250 V7 - SEM MARGEM COMO NA L4260 E PAPEL ATE 4624 mm
 Windows 7 x64 Intel/AMD, PowerShell 2.0 ou superior
 
 1. Extraia TODO o ZIP em uma pasta nova.
 2. Feche as preferencias Epson e os aplicativos que usam a impressora.
    Aguarde as filas de impressao terminarem.
 3. Clique com o botao direito em instalar.cmd > Executar como administrador.
-4. Ao terminar, confira "comprimento maximo informado". O esperado e
-   aproximadamente 4624 mm. Codigo 2 significa limite nao confirmado.
-5. Execute abrir-preferencias.cmd e tente salvar 210 x 4624 mm em
-   Tamanho do papel > Definido pelo usuario.
-6. Se continuar limitado, envie o log install-*.log indicado na janela.
-   Nao precisa executar o D1 novamente. Nao imprima durante a instalacao.
-7. Teste de impressao, um de cada vez: primeiro teste-3000mm.pdf, depois
-   teste-4600mm.pdf. Tamanho do papel = Definido pelo usuario com a mesma
-   largura e comprimento do PDF; escala 100%, sem Ajustar pagina.
-   Mande foto ou diga a ultima marca que saiu no papel.
+4. Ao terminar, confira "comprimento maximo informado": 4624 mm.
+5. Execute abrir-preferencias.cmd. Em Definido pelo usuario deve aparecer a
+   opcao de papel sem margem para larguras de 182 a 215,9 mm e comprimento
+   de 257 a 4624 mm. "Sem margens" tambem fica liberado em A4, Carta,
+   13 x 18 cm e 20 x 25 cm, como no driver da L4260.
+6. Teste de impressao, um de cada vez: primeiro teste-3000mm.pdf, depois
+   teste-4600mm.pdf; escala 100%, sem Ajustar pagina. Diga a ultima marca
+   que saiu no papel.
+7. Se der erro, envie o log install-*.log indicado na janela.
 
-A V5 tratou os CFX de trabalho em
-ProgramData e o cache binario. A analise estatica da DLL e do VIF mostrou:
-  %ProgramData%\EPSON\EPSON L3250 Series\E_TCXYWE.CFX
-  %ProgramData%\EPSON\EPSON L3250 Series\E_TCXYWA.CFX
-  %ProgramData%\EPSON\EPSON L3250 Series\ConvBinData\E_TCXYWE.CFB
-O driver pode preferir o CFB quando suas versoes coincidem. Reiniciar o
-Windows nao exclui esse cache persistente.
+O que muda em relacao a V6:
+A DLL de configuracao da L3250 e a da L4260 tem o mesmo codigo (secoes
+identicas byte a byte); o que muda e o CFX. A V7 copia da L4260:
+  - marcacao p="2" P="2" (sem margem) em A4, Carta, 13x18 e 20x25;
+  - retirada das 8 regras que proibiam sem margem nesses tamanhos;
+  - faixa de sem margem do papel definido pelo usuario (Dw/Dh/DW/DH),
+    com comprimento maximo estendido para 4624 mm.
+Os valores de expansao da margem continuam os da L3250.
 
-O instalador verifica as duas DLLs e o VIF pelos hashes conhecidos.
-Atualiza os CFX reconhecidos no spooler e os presentes na pasta de dados.
-Com o spooler parado, guarda uma copia verificada do CFB e retira somente
-esse arquivo ativo para permitir sua regeneracao. Nao modifica UCB/USB,
-Registro, DLLs, permissoes, assinaturas ou DriverStore. Nao envia impressao.
-Nesta V6, o limite CFX e 4624 mm / 182,05 polegadas. O CFX inclui o campo
-230, "Borderless Enlargement Methods", e seu marcador de reset, copiados
-da configuracao da L4260. Os controles basicos de sem borda ja existiam
-no CFX da L3250. A DLL instalada continua sendo a original da L3250.
-Se nao encontrar perfil de trabalho ou encontrar hash desconhecido,
-interrompe sem aplicar os arquivos. Reconhece a V5 de 3276,7 mm para
-atualizacao. Nao procura nem limpa outros modelos.
+O instalador reconhece o CFX original de 1200 mm e o da V6. Quando nao
+existem perfis em %ProgramData%\EPSON\EPSON L3250 Series, ajusta os CFX
+do driver no spooler; o driver regenera o cache CFB a partir deles.
+Nao modifica DLLs, registro, permissoes, assinaturas ou DriverStore.
 
-restaurar.cmd devolve os CFX originais de 1200 mm e guarda/retira o CFB
-corrente para que ele seja regenerado com os limites originais. Exige
-backup criado pela V6. Os backups anteriores permanecem nas respectivas pastas.
-verificar.cmd consulta arquivos e DC_MAXEXTENT, sem aplicar o ajuste.
+restaurar.cmd devolve os CFX originais de 1200 mm (exige backup da V7).
+verificar.cmd consulta arquivos e o limite sem aplicar nada.
 Logs/backups: C:\ProgramData\L3250-Comprimento-Experimental-Win7
 
-Codigo 0 confirma arquivos/limite anunciado, nao a impressao de 4624 mm.
-Codigo 1: erro. Codigo 2: limite nao confirmado.
-O ZIP pequeno usa o driver ja instalado; o completo inclui a Epson
-3.80.05.00 original. Nao e necessario reinstalar se os hashes conferirem.
-A correcao de elevacao/retorno continua incluida.
-
-Pacote experimental. O limite no painel e o modo de sem borda precisam
-ser conferidos no Windows. O suporte fisico da L3250 a sem borda depende
-do papel e tamanho escolhidos; a documentacao Epson lista somente 4 x 6
-pol. (102 x 152 mm) como tamanho compativel. A opcao nao confirma sem
-borda em papel longo. Impressao de 4624 mm nao foi testada nesta versao.
+Atencao: no driver original a Epson so libera sem margem na L3250 ate
+10,16 cm de largura. Sem margem em papel mais largo joga tinta alem da
+borda do papel; observe se aparecem manchas no verso ou na bandeja.
+Pacote experimental; sem margem e 4624 mm ainda nao foram testados aqui.

@@ -439,7 +439,7 @@ function Test-Verification($Manifest) {
                     Write-Host '  Ajuste NAO aplicado: configuracao original de 1200 mm.' -ForegroundColor Yellow
                     $pending = $true
                 } elseif ($hash -eq $target.previous_sha256) {
-                    Write-Host '  CFX de uma versao anterior presente. Aplique instalar.cmd da V6.' -ForegroundColor Yellow
+                    Write-Host '  CFX de uma versao anterior presente. Aplique instalar.cmd da V7.' -ForegroundColor Yellow
                     $pending = $true
                 } elseif ($hash -eq $target.patched_sha256) {
                     Write-Host '  Limites ampliados presentes neste CFX: mm e polegadas.'
@@ -502,7 +502,7 @@ try {
         Start-Transcript -Path $log -Force | Out-Null
     }
     $TranscriptStarted = $true
-    Write-Host 'L3250 V6: sem borda, limite de 4624 mm, perfis em ProgramData e regeneracao do cache.'
+    Write-Host 'L3250 V7: sem margem como na L4260, limite de 4624 mm, perfis do driver e regeneracao do cache.'
     Write-Host 'Feche as preferencias Epson e os aplicativos de impressao antes de aplicar ou restaurar.'
     Write-Host ('Registro: ' + $log)
     Write-Host ('Windows: ' + [Environment]::OSVersion.VersionString + '; PowerShell: ' + $PSVersionTable.PSVersion)
@@ -529,7 +529,7 @@ try {
         Assert-DriverVersion $driver $manifest
         $active = @(Get-Targets $driver $manifest)
         Assert-RuntimeProfiles $active
-        if ($null -eq $record.PSObject.Properties['release'] -or $record.release -ne 6) { throw 'Use instalar.cmd da V6 antes de restaurar por este pacote; o backup antigo nao inclui os perfis de ProgramData.' }
+        if ($null -eq $record.PSObject.Properties['release'] -or $record.release -ne 7) { throw 'Use instalar.cmd da V7 antes de restaurar por este pacote; o backup antigo nao inclui os perfis de ProgramData.' }
         if (@($record.files).Count -ne $active.Count) { throw 'A lista de perfis mudou desde o backup. Nenhum arquivo sera alterado.' }
         foreach ($item in $record.files) {
             $matched = @($active | Where-Object { $_.target -eq $item.target -and $_.original_sha256 -eq $item.original_sha256 -and $_.patched_sha256 -eq $item.patched_sha256 })
@@ -630,7 +630,7 @@ try {
         $target.before_sha256 = $hash
         Write-Host ('CFX: ' + $target.target + '; SHA256: ' + $hash)
         if ($hash -eq $target.patched_sha256) { Write-Host '  Limites ampliados ja presentes neste CFX.' }
-        elseif ($hash -eq $target.previous_sha256) { $pending += $target; Write-Host '  Atualizando o perfil V5 reconhecido para o limite V6.' }
+        elseif ($hash -eq $target.previous_sha256) { $pending += $target; Write-Host '  Atualizando o perfil V6 reconhecido para a V7 (sem margem).' }
         elseif ($hash -eq $target.original_sha256) { $pending += $target; Write-Host '  Configuracao original de 1200 mm.' }
         else { throw ('Versao CFX nao reconhecida. Nenhum arquivo sera alterado: ' + $target.target) }
     }
@@ -652,7 +652,7 @@ try {
             if ((Get-Sha256 $beforeBackup) -ne $target.before_sha256) { throw 'Arquivo mudou antes da transacao. Nenhuma alteracao aplicada.' }
             $records += (New-Object PSObject -Property @{ target = $target.target; backup = $backup; original_sha256 = $target.original_sha256; patched_sha256 = $target.patched_sha256; before_backup = $beforeBackup; before_sha256 = $target.before_sha256 })
         }
-        $record = (New-Object PSObject -Property @{ release = 6; driver_name = $DriverName; created = (Get-Date).ToString('o'); files = @($records) })
+        $record = (New-Object PSObject -Property @{ release = 7; driver_name = $DriverName; created = (Get-Date).ToString('o'); files = @($records) })
         $backupRecord = Join-Path $backupDirectory 'backup.clixml'
         Export-Clixml -InputObject $record -Path $backupRecord -Depth 6 -Encoding UTF8
         Copy-Item -LiteralPath $backupRecord -Destination (Join-Path $StateRoot 'last-backup.clixml') -Force
@@ -714,5 +714,5 @@ if ($null -eq $ResultCode -or $ResultCode -is [array] -or @(0, 1, 2) -notcontain
     Write-Host 'ERRO: resultado da execucao ausente ou invalido.'
     $ResultCode = 1
 }
-Write-Host ('RESULTADO V6: ' + $ResultCode + ' (0=verificacao concluida; 1=erro; 2=limite pendente)')
+Write-Host ('RESULTADO V7: ' + $ResultCode + ' (0=verificacao concluida; 1=erro; 2=limite pendente)')
 exit ([int]$ResultCode)
