@@ -1,6 +1,6 @@
 ﻿{
   "format": 1,
-  "release": 5,
+  "release": 6,
   "status": "experimental-not-tested-on-windows-or-printer",
   "driver": "EPSON L3250 Series",
   "driver_version": "3.80.05.00",
@@ -10,8 +10,9 @@
   "legacy_inf": "E2WF1YWE.INF",
   "original_installer_sha256": "8cdb2c34bebc163578c0fcdaaf9c77e50b08184ef6c3d7b2038aab940df9c145",
   "original_max_length_tenths_mm": 12000,
-  "patched_max_length_tenths_mm": 32767,
-  "patched_max_length_hundredths_inch": 12900,
+  "patched_max_length_tenths_mm": 46240,
+  "patched_max_length_hundredths_inch": 18205,
+  "borderless_method_field": 230,
   "binaries": [
     {
       "properties": [
@@ -43,24 +44,28 @@
       "source_name": "E_JC1YVA.CFX",
       "installed_name": "E_TCXYWA.CFX",
       "original_sha256": "0094b9fc1051353271780568e3670fb39e5997419e4bc107514b1512793e061a",
-      "patched_sha256": "8581e67749cf8bc22f3ef0e8a3589755ac0410e89a4b7cd9a304219dbca06571",
-      "previous_sha256": "4ca2dc896f84f15184758e4e855d69d45d2c968c8b41f2ef2d3ba05a12858dfc",
+      "patched_sha256": "a2d5f02911050354a46f71235c90feede09e7cfa4ff3bc2c085960c456a26017",
+      "previous_sha256": "8581e67749cf8bc22f3ef0e8a3589755ac0410e89a4b7cd9a304219dbca06571",
       "changed_attributes": [
         "F[f=7]/E[e=261]@K",
         "F[f=11]/E[e=0]/V@x",
-        "F[f=13]/E[e=0]/V@x"
+        "F[f=13]/E[e=0]/V@x",
+        "F[f=230]",
+        "y/F[f=230]"
       ]
     },
     {
       "source_name": "E_JC1YVE.CFX",
       "installed_name": "E_TCXYWE.CFX",
       "original_sha256": "45df278d23297369466053b81b74b527f2520c92f6b7955beb2896ac970f3a3e",
-      "patched_sha256": "695f990d9017b7368d41faa3f43a5809b9d83996d55bdf2278fffd205f514d34",
-      "previous_sha256": "09f8377c5c7cb656669b5efb6c5ce11e1005df8f8639e3c075244bcbd0b50f9e",
+      "patched_sha256": "66628920f655ca4caba03fc496199294e7b5aa23ccd7e43b19b9c75cd58baf61",
+      "previous_sha256": "695f990d9017b7368d41faa3f43a5809b9d83996d55bdf2278fffd205f514d34",
       "changed_attributes": [
         "F[f=7]/E[e=261]@K",
         "F[f=11]/E[e=0]/V@x",
-        "F[f=13]/E[e=0]/V@x"
+        "F[f=13]/E[e=0]/V@x",
+        "F[f=230]",
+        "y/F[f=230]"
       ]
     }
   ]

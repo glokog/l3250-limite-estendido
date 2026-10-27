@@ -13,7 +13,7 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 5 0 obj
-<< /Length 3311 >>
+<< /Length 3243 >>
 stream
 0 G
 0.6 w
@@ -83,7 +83,6 @@ BT /F1 11 Tf 127.559 839.055 Td (2700 mm) Tj ET
 BT /F1 11 Tf 127.559 555.591 Td (2800 mm) Tj ET
 42.520 283.465 m 113.386 283.465 l S
 BT /F1 11 Tf 127.559 272.126 Td (2900 mm) Tj ET
-BT /F1 10 Tf 255.118 272.126 Td (MARCA ALEM DE 1,20 m: 2.9 m) Tj ET
 BT /F1 11 Tf 113.386 51.024 Td (FIM - 3000 mm; medir a folha, sem reducao de escala.) Tj ET
 endstream
 endobj
@@ -98,5 +97,5 @@ xref
 trailer
 << /Size 6 /Root 1 0 R >>
 startxref
-3692
+3624
 %%EOF

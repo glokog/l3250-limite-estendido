@@ -83,7 +83,7 @@ function Show-ProfileLimit([string]$Path) {
     $driverLength = [int]$extent.GetAttribute('K') / 10.0
     Write-Host ('  Perfil do campo Comprimento no painel Epson: {0} mm; limite de papel: {1} mm.' -f $panelLength, $driverLength)
     Write-Host ('  Perfil equivalente em polegadas: {0} in ({1:F1} mm).' -f $inchLength, ($inchLength * 25.4))
-    return ($panelLength -ge 3000 -and $driverLength -ge 3000 -and ($inchLength * 25.4) -ge 3000)
+    return ($panelLength -ge 4624 -and $driverLength -ge 4624 -and ($inchLength * 25.4) -ge 4624)
 }
 
 function Open-Preferences {
@@ -98,7 +98,7 @@ function Open-Preferences {
         $index = $number - 1
     }
     Write-Host ('Abrindo as preferencias de ' + $printers[$index].Name)
-    Write-Host 'Em Tamanho do papel, abra Definido pelo usuario e teste Comprimento = 3000 mm.'
+    Write-Host 'Em Tamanho do papel, abra Definido pelo usuario e teste Comprimento = 4624 mm.'
     Start-Process -FilePath (Join-Path $env:windir 'System32\rundll32.exe') -ArgumentList @('printui.dll,PrintUIEntry', '/e', '/n', ('"{0}"' -f $printers[$index].Name)) -Wait
 }
 
@@ -339,11 +339,29 @@ function Retire-ProfileCache([string]$BackupDirectory) {
     Write-Host ('Cache antigo guardado em ' + $saved + '. O driver pode regenerar o CFB a partir do CFX.')
 }
 
+function Show-EpsonDataFolders {
+    $epson = [IO.Path]::GetDirectoryName((Get-EpsonDataRoot))
+    if (-not (Test-Path -LiteralPath $epson)) { Write-Host ('  Pasta ausente: ' + $epson); return }
+    Write-Host ('  Conteudo de ' + $epson + ':')
+    foreach ($folder in @(Get-ChildItem -LiteralPath $epson -Force -ErrorAction SilentlyContinue)) {
+        Write-Host ('    ' + $folder.Name)
+        if ($folder.PSIsContainer) {
+            foreach ($file in @(Get-ChildItem -LiteralPath $folder.FullName -Force -ErrorAction SilentlyContinue)) { Write-Host ('      ' + $file.Name) }
+        }
+    }
+}
+
 function Assert-RuntimeProfiles($Targets) {
     $root = Get-EpsonDataRoot
     $runtime = @($Targets | Where-Object { $_.target -eq (Join-Path $root 'E_TCXYWE.CFX') })
     if ($runtime.Count -eq 0) {
-        throw ('Nao encontrei CFX em ' + $root + '. Nenhum arquivo sera alterado; guarde o registro para identificar o caminho usado neste computador.')
+        $inData = @($Targets | Where-Object { $_.target.StartsWith($root + '\', [StringComparison]::OrdinalIgnoreCase) })
+        if ($inData.Count -gt 0) {
+            throw ('Perfil base E_TCXYWE.CFX ausente em ' + $root + ', mas ha outro CFX nessa pasta. Nenhum arquivo sera alterado.')
+        }
+        # The driver has not created working profiles yet; it can only take them from the spooler CFX.
+        Show-EpsonDataFolders
+        Write-Host ('Sem perfis de trabalho em ' + $root + '. Serao ajustados os CFX do driver no spooler.') -ForegroundColor Yellow
     }
     Assert-NoReparsePath (Get-ProfileCache)
 }
@@ -393,10 +411,10 @@ public static class L3250Capabilities {
         $width = [BitConverter]::ToUInt16($extentBytes, 0) / 10.0
         $length = [BitConverter]::ToUInt16($extentBytes, 2) / 10.0
         Write-Host ('Fila: {0}; largura maxima: {1} mm; comprimento maximo informado: {2} mm' -f $printer.Name, $width, $length)
-        if ($length -lt 3000) { $allExpanded = $false }
+        if ($length -lt 4624) { $allExpanded = $false }
     }
     if (-not $allExpanded) {
-        Write-Warning 'O driver ainda nao confirmou 3000 mm em todas as filas. Confira os CFX e o campo Comprimento nas preferencias da mesma fila.'
+        Write-Warning 'O driver ainda nao confirmou 4624 mm em todas as filas. Confira os CFX e o campo Comprimento nas preferencias da mesma fila.'
     }
     return $allExpanded
 }
@@ -421,7 +439,7 @@ function Test-Verification($Manifest) {
                     Write-Host '  Ajuste NAO aplicado: configuracao original de 1200 mm.' -ForegroundColor Yellow
                     $pending = $true
                 } elseif ($hash -eq $target.previous_sha256) {
-                    Write-Host '  Ajuste V1/V2 presente; o perfil em polegadas ainda equivale a 1200 mm. Aplique instalar.cmd da V5.' -ForegroundColor Yellow
+                    Write-Host '  CFX de uma versao anterior presente. Aplique instalar.cmd da V6.' -ForegroundColor Yellow
                     $pending = $true
                 } elseif ($hash -eq $target.patched_sha256) {
                     Write-Host '  Limites ampliados presentes neste CFX: mm e polegadas.'
@@ -433,7 +451,7 @@ function Test-Verification($Manifest) {
     $capabilitiesOk = $false
     try { $script:Stage = 'consulta do comprimento anunciado'; $capabilitiesOk = Show-Capabilities }
     catch { Show-Failure $_; $failed = $true }
-    Write-Host 'Teste do painel: execute abrir-preferencias.cmd, abra Definido pelo usuario e tente salvar 210 x 3000 mm.'
+    Write-Host 'Teste do painel: execute abrir-preferencias.cmd, abra Definido pelo usuario e tente salvar 210 x 4624 mm.'
     if ($failed) { return 1 }
     if ($pending -or -not $capabilitiesOk) { return 2 }
     Write-Host 'Perfis ativos e limite anunciado conferidos. A aceitacao no painel e a impressao precisam ser testadas no Windows.' -ForegroundColor Green
@@ -484,7 +502,7 @@ try {
         Start-Transcript -Path $log -Force | Out-Null
     }
     $TranscriptStarted = $true
-    Write-Host 'L3250 V5: perfis em ProgramData e regeneracao do cache de comprimento.'
+    Write-Host 'L3250 V6: sem borda, limite de 4624 mm, perfis em ProgramData e regeneracao do cache.'
     Write-Host 'Feche as preferencias Epson e os aplicativos de impressao antes de aplicar ou restaurar.'
     Write-Host ('Registro: ' + $log)
     Write-Host ('Windows: ' + [Environment]::OSVersion.VersionString + '; PowerShell: ' + $PSVersionTable.PSVersion)
@@ -511,7 +529,7 @@ try {
         Assert-DriverVersion $driver $manifest
         $active = @(Get-Targets $driver $manifest)
         Assert-RuntimeProfiles $active
-        if ($null -eq $record.PSObject.Properties['release'] -or $record.release -ne 5) { throw 'Use instalar.cmd da V5 antes de restaurar por este pacote; o backup antigo nao inclui os perfis de ProgramData.' }
+        if ($null -eq $record.PSObject.Properties['release'] -or $record.release -ne 6) { throw 'Use instalar.cmd da V6 antes de restaurar por este pacote; o backup antigo nao inclui os perfis de ProgramData.' }
         if (@($record.files).Count -ne $active.Count) { throw 'A lista de perfis mudou desde o backup. Nenhum arquivo sera alterado.' }
         foreach ($item in $record.files) {
             $matched = @($active | Where-Object { $_.target -eq $item.target -and $_.original_sha256 -eq $item.original_sha256 -and $_.patched_sha256 -eq $item.patched_sha256 })
@@ -612,7 +630,7 @@ try {
         $target.before_sha256 = $hash
         Write-Host ('CFX: ' + $target.target + '; SHA256: ' + $hash)
         if ($hash -eq $target.patched_sha256) { Write-Host '  Limites ampliados ja presentes neste CFX.' }
-        elseif ($hash -eq $target.previous_sha256) { $pending += $target; Write-Host '  Atualizando os limites de comprimento da V1/V2.' }
+        elseif ($hash -eq $target.previous_sha256) { $pending += $target; Write-Host '  Atualizando o perfil V5 reconhecido para o limite V6.' }
         elseif ($hash -eq $target.original_sha256) { $pending += $target; Write-Host '  Configuracao original de 1200 mm.' }
         else { throw ('Versao CFX nao reconhecida. Nenhum arquivo sera alterado: ' + $target.target) }
     }
@@ -634,7 +652,7 @@ try {
             if ((Get-Sha256 $beforeBackup) -ne $target.before_sha256) { throw 'Arquivo mudou antes da transacao. Nenhuma alteracao aplicada.' }
             $records += (New-Object PSObject -Property @{ target = $target.target; backup = $backup; original_sha256 = $target.original_sha256; patched_sha256 = $target.patched_sha256; before_backup = $beforeBackup; before_sha256 = $target.before_sha256 })
         }
-        $record = (New-Object PSObject -Property @{ release = 5; driver_name = $DriverName; created = (Get-Date).ToString('o'); files = @($records) })
+        $record = (New-Object PSObject -Property @{ release = 6; driver_name = $DriverName; created = (Get-Date).ToString('o'); files = @($records) })
         $backupRecord = Join-Path $backupDirectory 'backup.clixml'
         Export-Clixml -InputObject $record -Path $backupRecord -Depth 6 -Encoding UTF8
         Copy-Item -LiteralPath $backupRecord -Destination (Join-Path $StateRoot 'last-backup.clixml') -Force
@@ -678,8 +696,8 @@ try {
     $capabilitiesOk = Show-Capabilities
     Show-ProfileCache
     if (-not $capabilitiesOk) { return 2 }
-    Write-Host 'O driver anuncia pelo menos 3000 mm. Feche e reabra o aplicativo de impressao antes do teste.' -ForegroundColor Green
-    Write-Host 'Execute abrir-preferencias.cmd. No painel Epson, abra Tamanho do papel > Definido pelo usuario e salve 210 x 3000 mm.'
+    Write-Host 'O driver anuncia pelo menos 4624 mm. Feche e reabra o aplicativo de impressao antes do teste.' -ForegroundColor Green
+    Write-Host 'Execute abrir-preferencias.cmd. No painel Epson, abra Tamanho do papel > Definido pelo usuario e salve 210 x 4624 mm.'
     return 0
 } catch {
     Show-Failure $_
@@ -696,5 +714,5 @@ if ($null -eq $ResultCode -or $ResultCode -is [array] -or @(0, 1, 2) -notcontain
     Write-Host 'ERRO: resultado da execucao ausente ou invalido.'
     $ResultCode = 1
 }
-Write-Host ('RESULTADO V5: ' + $ResultCode + ' (0=verificacao concluida; 1=erro; 2=limite pendente)')
+Write-Host ('RESULTADO V6: ' + $ResultCode + ' (0=verificacao concluida; 1=erro; 2=limite pendente)')
 exit ([int]$ResultCode)

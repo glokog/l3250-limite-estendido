@@ -1,5 +1,13 @@
 # Histórico
 
+## L3250 V6 experimental — 27/10/2026
+
+- Limite do papel definido pelo usuário de 1200 para **4624 mm** (182,05 pol.).
+- Sem perfis em ProgramData, ajusta os CFX do driver no spooler; o driver regenera o cache (confirmado com REA + Ghidra).
+- Atualiza por cima da V5; réguas de teste de 1500, 3000 e 4600 mm.
+- 4624 mm confirmado nas preferências do driver pelo responsável.
+- Acrescentava o campo 230, que é "Verificar largura do papel antes de imprimir" (não sem margem); retirado na V7.
+
 ## 23/10/2026 — marco físico de 3 metros (documentação)
 
 - Usuário confirmou que a Epson L3250 realmente imprimiu **3000 mm**.
