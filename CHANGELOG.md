@@ -1,5 +1,10 @@
 # Histórico
 
+## L375 V1 experimental — 27/10/2026
+
+- Limite do papel definido pelo usuário de 1117,6 para **4624 mm** no driver Epson L375 2.60.00.00.
+- Mostrava o campo 230 achando que era sem margem; corrigido na L375 V2.
+
 ## L3250 V6 experimental — 27/10/2026
 
 - Limite do papel definido pelo usuário de 1200 para **4624 mm** (182,05 pol.).

@@ -1,0 +1,51 @@
+﻿EPSON L375 V1 - CAMPO SEM BORDA E PAPEL ATE 4624 mm
+Windows 7 x64 Intel/AMD, PowerShell 2.0 ou superior
+
+1. Extraia TODO o ZIP em uma pasta nova.
+2. Feche as preferencias Epson e os aplicativos que usam a impressora.
+   Aguarde as filas de impressao terminarem.
+3. Clique com o botao direito em instalar.cmd > Executar como administrador.
+4. Ao terminar, confira "comprimento maximo informado". O esperado e
+   aproximadamente 4624 mm. Codigo 2 significa limite nao confirmado.
+5. Execute abrir-preferencias.cmd e tente salvar 210 x 4624 mm em
+   Tamanho do papel > Definido pelo usuario.
+6. Se o limite nao mudar, envie o log indicado na janela. Nao imprima
+   durante a aplicacao.
+7. Teste de impressao, um de cada vez: primeiro teste-3000mm.pdf, depois
+   teste-4600mm.pdf. Tamanho do papel = Definido pelo usuario com a mesma
+   largura e comprimento do PDF; escala 100%, sem Ajustar pagina.
+   Mande foto ou diga a ultima marca que saiu no papel.
+
+O driver de origem e Epson L375 2.60.00.00, x64. O limite original nos
+dois CFX era 1117,6 mm. O VIF e a INF relacionam os perfis ativos:
+  %ProgramData%\EPSON\EPSON L375 Series\E_TCXN8E.CFX
+  %ProgramData%\EPSON\EPSON L375 Series\E_TCXN8A.CFX
+  %ProgramData%\EPSON\EPSON L375 Series\ConvBinData\E_TCXN8E.CFB
+
+Os dois perfis passam para 4624 mm / 182,05 polegadas. O campo CFX 230,
+"Metodos de expansao sem margens", ja existia na L375 com S="f". A V1
+remove esse marcador, seguindo a definicao ativa da L4260. A DLL da L375
+ja contem a classe de selecao por radio para papel personalizado sem
+borda. Os campos 213-215 da L3250 nao existem neste driver e nao foram
+importados.
+
+O instalador verifica os hashes dos binarios originais, atualiza os CFX
+reconhecidos no spooler e na pasta de dados, faz backup e renova o CFB
+com o spooler parado. Nao modifica DLLs, registro, permissoes, assinaturas
+ou DriverStore. Nao imprime. Se encontrar arquivos desconhecidos,
+interrompe antes de aplicar.
+
+restaurar.cmd recupera os dois CFX originais de 1117,6 mm e renova o CFB.
+verificar.cmd consulta arquivos e DC_MAXEXTENT sem aplicar o ajuste.
+Logs e backups: C:\ProgramData\L375-Comprimento-Experimental-Win7
+
+Codigo 0 confirma arquivos/limite anunciado, nao uma impressao de 4624 mm.
+Codigo 1: erro. Codigo 2: limite nao confirmado.
+O ZIP pequeno usa o driver L375 2.60.00.00 ja instalado; o completo inclui
+o instalador original Epson.
+
+Pacote experimental. O painel e a impressao longa nao foram testados no
+Windows. O manual oficial da L375 documenta tamanhos definidos pelo
+usuario, mas nao confirma sem borda em papel personalizado ou com 4624 mm.
+A alteracao do campo 230 e uma inferencia estatica a partir do CFX da L4260
+e precisa ser confirmada no painel da L375.
