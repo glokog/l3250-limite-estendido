@@ -1,5 +1,7 @@
 # Depois dos 3 metros: 4 m e comprimento configurável
 
+> **Atualização 27/10/2026:** a L3250 V6/V7 e a L375 V2 levam o limite a **4624 mm**, usando a dimensão privada de 16 bits sem sinal do driver. Veja o [relatório V6/V7](RELATORIO-V6-V7.md). Este plano fica como registro histórico.
+
 Estado em **23/10/2026**. Este documento é um plano de investigação: não altera driver, perfis, limites, firmware ou configuração da impressora e não instrui aplicar um ajuste de 4 m à V5 atual.
 
 ## O que sabemos

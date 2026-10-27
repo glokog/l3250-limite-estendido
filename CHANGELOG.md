@@ -1,5 +1,11 @@
 # Histórico
 
+## L375 V2 experimental — 27/10/2026
+
+- Mantém **4624 mm** e deixa o campo "Verificar largura do papel antes de imprimir" oculto, como no original.
+- O driver 2.60 da L375 não tem sem margem (sem campo 213, tabelas de expansão ou origem sem margem); nada a liberar.
+- Atualiza por cima da L375 V1. README e relatórios atualizados para as duas impressoras.
+
 ## L3250 V7 experimental — 27/10/2026
 
 - **Sem margem como no driver da L4260**: A4, Carta, 13×18 e 20×25 cm, e papel definido pelo usuário sem margem de 182 a 215,9 mm de largura e até 4624 mm de comprimento.

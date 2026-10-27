@@ -1,6 +1,6 @@
 ﻿{
   "format": 1,
-  "release": 1,
+  "release": 2,
   "status": "experimental-not-tested-on-windows-or-printer",
   "driver": "EPSON L375 Series",
   "driver_version": "2.60.00.00",
@@ -12,8 +12,6 @@
   "original_max_length_tenths_mm": 11176,
   "patched_max_length_tenths_mm": 46240,
   "patched_max_length_hundredths_inch": 18205,
-  "borderless_method_field": 230,
-  "borderless_change": "remove S=f from existing field",
   "binaries": [
     {
       "properties": [
@@ -45,26 +43,24 @@
       "source_name": "E_JC1N9A.CFX",
       "installed_name": "E_TCXN8A.CFX",
       "original_sha256": "ce34976fee477b08c4c798e11e1761205cbabed352df916420cf99c679cf4ddf",
-      "patched_sha256": "cb186b5120acce700c67a69134365e6cea80e21113ec47c3db18f6a023c7db09",
-      "previous_sha256": "ce34976fee477b08c4c798e11e1761205cbabed352df916420cf99c679cf4ddf",
+      "patched_sha256": "1fdf74439b88ba5728bbfc08e01a7b90a4f7ee243a87f8cc998297cadd121356",
+      "previous_sha256": "cb186b5120acce700c67a69134365e6cea80e21113ec47c3db18f6a023c7db09",
       "changed_attributes": [
         "F[f=7]/E[e=261]@K",
         "F[f=11]/E[e=0]/V@x",
-        "F[f=13]/E[e=0]/V@x",
-        "F[f=230]/@S"
+        "F[f=13]/E[e=0]/V@x"
       ]
     },
     {
       "source_name": "E_JC1N9E.CFX",
       "installed_name": "E_TCXN8E.CFX",
       "original_sha256": "bf9bda9c8977bc86d2bc183a07b694ace42f7f2d6a262aed27e3b4403b4f7353",
-      "patched_sha256": "1878eb1f457a38d060621ed1134365c5f985b80891efdc9c23a5039f9585a0a9",
-      "previous_sha256": "bf9bda9c8977bc86d2bc183a07b694ace42f7f2d6a262aed27e3b4403b4f7353",
+      "patched_sha256": "88629d518afc86365d8250474a23f245fcbab6811fe0cccbdd70147bb460643d",
+      "previous_sha256": "1878eb1f457a38d060621ed1134365c5f985b80891efdc9c23a5039f9585a0a9",
       "changed_attributes": [
         "F[f=7]/E[e=261]@K",
         "F[f=11]/E[e=0]/V@x",
-        "F[f=13]/E[e=0]/V@x",
-        "F[f=230]/@S"
+        "F[f=13]/E[e=0]/V@x"
       ]
     }
   ]
