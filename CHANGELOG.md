@@ -1,5 +1,11 @@
 # Histórico
 
+## L3250 V8 experimental — 27/10/2026
+
+- **Sem margem em qualquer tamanho** que a impressora alimenta, estendendo as regras da L4260.
+- Papel definido pelo usuário sem margem de 54 a 215,9 mm de largura e 86 a 4624 mm de comprimento.
+- O instalador aceita mais de uma versão anterior: reconhece original, V6 e V7. Ainda não testada.
+
 ## L375 V2 experimental — 27/10/2026
 
 - Mantém **4624 mm** e deixa o campo "Verificar largura do papel antes de imprimir" oculto, como no original.

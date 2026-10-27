@@ -1,6 +1,6 @@
 ﻿{
   "format": 1,
-  "release": 7,
+  "release": 8,
   "status": "experimental-not-tested-on-windows-or-printer",
   "driver": "EPSON L3250 Series",
   "driver_version": "3.80.05.00",
@@ -12,7 +12,7 @@
   "original_max_length_tenths_mm": 12000,
   "patched_max_length_tenths_mm": 46240,
   "patched_max_length_hundredths_inch": 18205,
-  "borderless_source": "L4260 CFX (identical config DLL code)",
+  "borderless_source": "L4260 CFX rules extended to every size",
   "binaries": [
     {
       "properties": [
@@ -44,30 +44,30 @@
       "source_name": "E_JC1YVA.CFX",
       "installed_name": "E_TCXYWA.CFX",
       "original_sha256": "0094b9fc1051353271780568e3670fb39e5997419e4bc107514b1512793e061a",
-      "patched_sha256": "5d455f3939ac5b090bfe8a4fc4d9bb1510aac70698cd585ef47099e00335512c",
-      "previous_sha256": "a2d5f02911050354a46f71235c90feede09e7cfa4ff3bc2c085960c456a26017",
+      "patched_sha256": "345991c2fcae0f8da95cb4c6fdf4300db72cbad4ee8cf80c1309437c2f48e148",
+      "previous_sha256": "a2d5f02911050354a46f71235c90feede09e7cfa4ff3bc2c085960c456a26017;5d455f3939ac5b090bfe8a4fc4d9bb1510aac70698cd585ef47099e00335512c",
       "changed_attributes": [
         "F[f=7]/E[e=261]@K",
         "F[f=11]/E[e=0]/V@x",
         "F[f=13]/E[e=0]/V@x",
         "F[f=7]/E[e=261]@Dw,Dh,DW,DH",
-        "F[f=9,35]/E[e=9,284,268,1]@p,P",
-        "P[213=1 com tamanhos 9,284,268,1] removidas"
+        "F[f=9,35]/E@p,P (todos os tamanhos)",
+        "P[213=1 com f=9/35] removidas"
       ]
     },
     {
       "source_name": "E_JC1YVE.CFX",
       "installed_name": "E_TCXYWE.CFX",
       "original_sha256": "45df278d23297369466053b81b74b527f2520c92f6b7955beb2896ac970f3a3e",
-      "patched_sha256": "5252e37d42671e65bc22ae9eef93e75c44a8a5ce30f2d472660772f522ffdf73",
-      "previous_sha256": "66628920f655ca4caba03fc496199294e7b5aa23ccd7e43b19b9c75cd58baf61",
+      "patched_sha256": "c1392c4cc8959069b00a26da60399131145b4d22f8d9d0e7261edcfb4bbca8ff",
+      "previous_sha256": "66628920f655ca4caba03fc496199294e7b5aa23ccd7e43b19b9c75cd58baf61;5252e37d42671e65bc22ae9eef93e75c44a8a5ce30f2d472660772f522ffdf73",
       "changed_attributes": [
         "F[f=7]/E[e=261]@K",
         "F[f=11]/E[e=0]/V@x",
         "F[f=13]/E[e=0]/V@x",
         "F[f=7]/E[e=261]@Dw,Dh,DW,DH",
-        "F[f=9,35]/E[e=9,284,268,1]@p,P",
-        "P[213=1 com tamanhos 9,284,268,1] removidas"
+        "F[f=9,35]/E@p,P (todos os tamanhos)",
+        "P[213=1 com f=9/35] removidas"
       ]
     }
   ]
